@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stimulus JS</title>
+    <link rel="shortcut icon" href="data:image/x-icon;" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <!-- 0. Adicionar o Stimulus no HTML -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        }
+      }
+    </script>
+    <script src="javascript/application.js" type="module"></script>
+  </head>
+
+  <body>
+    <div class="container text-center mt-5">
+      <h1>Stimulus JS</h1>
+      <div class="row">
+
+        <!-- 1. Conectar o controle -->
+        <div class="col-12 pt-1"
+             data-controller="disable-button"
+             data-disable-button-text-value="Bingo!"
+             data-disable-button-reset-value="Click me"> <!-- 6. Colocar os values e adicioná-los nos static values do JS -->
+
+          <!-- 2. Adicionar a ação e criá-la no controle -->
+          <button class="btn btn-primary btn-lg" id="click-me"
+                  data-action="click->disable-button#disable"
+                  data-disable-button-target="button"> <!-- 4. Declarar o target e adicioná-lo nos static targets do JS -->
+            Click me!
+          </button>
+
+          <!-- 3. Adicionar outra ação e criá-la no controle -->
+          <a class="d-none"
+             data-action="click->disable-button#reset"
+             data-disable-button-target="link"> <!-- 5. Declarar o outro target e adicioná-lo nos static targets do JS -->
+             Reset
+          </a>
+        </div>
+      </div>
+
+      <!-- Remove the `d-none` when you want to display the form -->
+      <div class="row">
+
+        <!-- 1. Conectar o controle -->
+        <div class="col-12"
+             data-controller="movies"
+             data-movies-base-url-value="http://www.omdbapi.com/"> <!-- 6. Colocar o value e adicioná-lo nos static values do JS -->
+
+          <!-- 2. Adicionar a ação e criá-la no controle -->
+          <form class="row g-2 justify-content-center py-5"
+                data-action="submit->movies#search">
+            <div class="col-4">
+
+              <!-- 3. Declarar o target e adicioná-lo nos static targets do JS -->
+              <input type="text" class="form-control" placeholder="Find movie"
+                     data-movies-target="input">
+            </div>
+            <div class="col-1">
+              <input type="submit" class="btn btn-primary">
+            </div>
+          </form>
+
+          <!-- 4. Declarar o outro target e adicioná-lo nos static targets do JS -->
+          <ul class="row" data-movies-target="results"></ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+<!-- data-controller: -->
+<!-- <div data-controller="controller-name"></tag> -->
+
+<!-- data-action: -->
+<!-- <tag data-action="event->controller-name#function"></tag> -->
+
+<!-- data-target: -->
+<!-- <tag data-controller-name-target="targetName"></tag> -->
+
+<!-- data-value: -->
+<!-- <tag data-controller-name-value-name-value="value"></tag> -->
